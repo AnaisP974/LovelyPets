@@ -91,14 +91,14 @@
                     <%= i+1%>
                   </th>
 
-                  <td><img src=<%=dataSelectedProducts[i].img %> class="basket-img" width="50rem"><br />
+                  <td><img src="<%=dataSelectedProducts[i].img %>" class="basket-img" width="50rem"><br />
                     <%= dataSelectedProducts[i].name%>
                   </td>
 
                   <td>
-                    <form>
-
-                      <input type="text" name="quantity" value=<%=dataSelectedProducts[i].quantity %> size="2" >
+                    <form action="update-product" method="post">
+                      <input type="text" name="quantityFromFront" value="<%=dataSelectedProducts[i].quantity%>" size="2"/>
+                      <input type="hidden" name="positionFromFront" value="<%=i%>">
                       <button class="btn btn-outline-info btn-sm" name="button"><svg xmlns="http://www.w3.org/2000/svg"
                           width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                           <path fill-rule="evenodd"
@@ -108,12 +108,8 @@
                         </svg></button>
                     </form>
                   </td>
-                  <td>
-                    <%= dataSelectedProducts[i].price %>
-                  </td>
-                  <td>
-                    <%= dataSelectedProducts[i].price * dataSelectedProducts[i].quantity %>
-                  </td>
+                  <td><%= dataSelectedProducts[i].price %>€</td>
+                  <td><%= dataSelectedProducts[i].price * dataSelectedProducts[i].quantity %>€</td>
                   <td>
                     <button class="btn btn-outline-danger btn-sm" name="button" data-bs-toggle="modal"
                       data-bs-target="#modal-<%=i+1%>">
@@ -158,9 +154,7 @@
                     <td></td>
                     <td></td>
                     <td class="total-box">Total : </td>
-                    <td>
-                      <%= totalCommande %>€
-                    </td>
+                    <td> <%= totalCommande %>€ </td>
                     <td></td>
                   </tr>
             </tbody>

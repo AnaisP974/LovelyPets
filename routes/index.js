@@ -56,6 +56,19 @@ router.get('/delete-product', function(req, res, next) {
   res.render('panier', { title: 'Mon panier', dataSelectedProducts: dataSelectedProducts});
 });
 
+/* MODIFIER LA QUANTITE */
+router.post('/update-product', function(req, res, next) {
+  console.log(req.body)
+
+  var newQuantity = req.body.quantityFromFront
+  var position = req.body.positionFromFront
+
+  //"va à la position i et modifie la quantité"
+  dataSelectedProducts[position].quantity = newQuantity
+
+  res.render('panier', { title: 'Mon panier', dataSelectedProducts})
+
+})
 
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
