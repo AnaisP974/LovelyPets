@@ -3,14 +3,17 @@ var router = express.Router();
 
 //création de la liste des produits et de ses caractéristiques que j'enregistre dans une variable globale
 let dataProducts = [
-  { name: "Clochette", img: "/images/clochette.jpg", desc: "Sonnette d'entraînement pour chiens, accessoire pour signaler le repas ou les sorties.", price: 14 },
-  { name: "Collier", img: "/images/collier.jpg", desc: "Collier en cuir, avec plaque personnalisée éléglant et résistant.", price: 25 },
-  { name: "Collier Strass", img: "/images/collier1.jpg", desc: "Collier avec paillette avec strass et diamant fantaisie personnalisable", price: 30 },
-  { name: "Gamelles surélevées", img: "/images/gamelle.jpg", desc: "Gammelles surélevées facilitent la prise de l'aliment, la digestion et le confort de vos animaux.", price: 45 },
-  { name: "Box ludique", img: "/images/jeuLudique.jpg", desc: "Jeux Ludique pour chien et chat", price: 20 },
-  { name: "Boule de récompenses", img: "/images/jeuLudique1.jpg", desc: "Boule dejeux qui distribue des récompenses", price: 20 },
-  { name: "Niche Nounours", img: "/images/niche.jpg", desc: "Niche tout confort brun et pliable", price: 35 },
-  { name: "Niche Lapinou", img: "/images/niche1.jpg", desc: "Niche tout confort couleur crème et pliable", price: 35 }
+  { mea: false, name: "Clochette", img: "/images/clochette.jpg", desc: "Sonnette d'entraînement pour chiens, accessoire pour signaler le repas ou les sorties.", price: 14 },
+  { mea: false, name: "Collier", img: "/images/collier.jpg", desc: "Collier en cuir, avec plaque personnalisée éléglant et résistant.", price: 25 },
+  { mea: true, name: "Sac de transport été", img: "/images/sac2.jpg", desc: "Sac à main de transport pour animaux de compagnie, respirant idéal pour l'été", price: 40 },
+  { mea: false, name: "Collier Strass", img: "/images/collier1.jpg", desc: "Collier avec paillette avec strass et diamant fantaisie personnalisable", price: 30 },
+  { mea: false, name: "Gamelles surélevées", img: "/images/gamelle.jpg", desc: "Gammelles surélevées facilitent la prise de l'aliment, la digestion et le confort de vos animaux.", price: 45 },
+  { mea: true, name: "Sac de transport", img: "/images/sac.jpg", desc: "Sac à dos de Transport pour chien, sacoche multifonctionnelle.", price: 75 },
+  { mea: false, name: "Box ludique", img: "/images/jeuLudique.jpg", desc: "Jeux Ludique pour chien et chat", price: 20 },
+  { mea: false, name: "Boule de récompenses", img: "/images/jeuLudique1.jpg", desc: "Boule dejeux qui distribue des récompenses", price: 20 },
+  { mea: false, name: "Niche Nounours", img: "/images/niche.jpg", desc: "Niche tout confort brun et pliable", price: 35 },
+  { mea: false, name: "Niche Lapinou", img: "/images/niche1.jpg", desc: "Niche tout confort couleur crème et pliable", price: 35 },
+  { mea: true, name: "Sac de Luxe", img: "/images/sac1.jpg", desc: "Sac à dos de transport pour petit chien, en cuir blanc écru.", price: 95 },
 ];
 
 //tableau qui représente la liste de produits présent dans le panier

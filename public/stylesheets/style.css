@@ -2,7 +2,10 @@ main {
   margin-left: 3%;
   margin-top: 2%;
 }
-
+.mea {
+  border: 2px rgb(255, 194, 39) solid;
+  background-color: rgb(255, 243, 169);
+}
 a {
   color: #00B7FF;
   text-decoration: none;
