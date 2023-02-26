@@ -41,7 +41,7 @@
                             <a class="nav-link active" href="/shop">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panier">Panier</a>
+                            <a class="nav-link" href="/consultPanier">Panier</a>
                         </li>
 
                         <li class="nav-item">
@@ -58,7 +58,7 @@
 
     <main>
         <h1>
-            <%= title %>
+            <%= title%>
         </h1>
       
 
@@ -87,7 +87,7 @@
 
                                 <a class="btn btn-primary" href="/shop">Retour</a>
                                 <!-- nameFromFront => pour éviter l'ajout d'article à chaque chargement de la page du panier -->
-                                <a class="btn btn-success" href="/panier?nameFromFront=<%=name%>&imgFromFront=<%=img%>&priceFromFront=<%= price%>">Ajouter</a>
+                                <a class="btn btn-success" href="/panier?productNameFromFront=<%=name%>&productImgFromFront=<%=img%>&productPriceFromFront=<%= price%>">Ajouter</a>
 
                             </div>
 

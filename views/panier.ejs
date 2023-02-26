@@ -39,7 +39,7 @@
               <a class="nav-link" href="/shop">Shop</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/panier">Panier</a>
+              <a class="nav-link active" href="/consultPanier">Panier</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/contact">Contact</a>
@@ -96,6 +96,7 @@
                   </td>
 
                   <td>
+                    <!-- MODIFIER LA QUANTITE -->
                     <form action="update-product" method="post">
                       <input type="text" name="quantityFromFront" value="<%=dataSelectedProducts[i].quantity%>" size="2"/>
                       <input type="hidden" name="positionFromFront" value="<%=i%>">
@@ -109,6 +110,7 @@
                     </form>
                   </td>
                   <td><%= dataSelectedProducts[i].price %>€</td>
+                  <!-- ACTUALISATION DU TOTAL -->
                   <td><%= dataSelectedProducts[i].price * dataSelectedProducts[i].quantity %>€</td>
                   <td>
                     <button class="btn btn-outline-danger btn-sm" name="button" data-bs-toggle="modal"
