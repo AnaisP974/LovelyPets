@@ -86,7 +86,8 @@
                             <div class="d-flex justify-content-around">
 
                                 <a class="btn btn-primary" href="/shop">Retour</a>
-                                <a class="btn btn-success" href="/panier">Ajouter</a>
+                                <!-- nameFromFront => pour éviter l'ajout d'article à chaque chargement de la page du panier -->
+                                <a class="btn btn-success" href="/panier?nameFromFront=<%=name%>&imgFromFront=<%=img%>&priceFromFront=<%= price%>">Ajouter</a>
 
                             </div>
 

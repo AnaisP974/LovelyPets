@@ -60,24 +60,6 @@
     <h1>
       <%= title %>
     </h1>
-    <!-- utiliser un objet -->
-    <p>Welcome to <%= user.lastName + " " + user.firstName %>
-    </p>
-
-    <!-- utiliser une condition "if" -->
-
-    <p>Température <%= temp %>°C</p>
-    <% if(temp < 17){ %>
-      <p>Il fait froid</p>
-      <% } else if(temp < 25){ %>
-        <p>Il fait super bon</p>
-        <% } else if(temp < 33){ %>
-          <p>J'ai soif il faut chaud</p>
-          <% } else if(temp < 40){ %>
-            <p>C'est la fournaise </p>
-            <% } else { %>
-              <p>L'enfer c'est ici !</p>
-              <% } %>
 
 
   </main>

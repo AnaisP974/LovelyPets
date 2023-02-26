@@ -14,20 +14,13 @@ let dataProducts = [
 ];
 
 //tableau qui représente la liste de produits présent dans le panier
-let dataSelectedProducts = [
-  {name: "Clochette", img: "/images/clochette.jpg", price: 14, quantity: 1},
-  {name: "Collier", img: "/images/collier.jpg", price: 25, quantity: 2},
-
-]
+let dataSelectedProducts = [];
 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // nous créons une variable “temp” contenant un nombre généré aléatoirement
-  let temp = Math.floor(Math.random() * Math.floor(40));
-
-  res.render('index', { title: 'Home Page', temp: temp, user:{lastName: 'Anaïs', firstName: 'PERIGNY'}});
+  res.render('index', { title: 'Home Page'});
 });
 
 /* GET shop page. */
@@ -41,15 +34,28 @@ router.get('/shop', function(req, res, next) {
 router.get('/product', function(req, res, next) {
   //vérifier si je récupère bien les éléments passés en get depuis le front sur le backend
   console.log(req.query)
-  //..et je ici les variables enregistrés pour la création de la page à retourner au front
+  //..et je passe ici les variables enregistrés pour la création de la page à retourner au front
   res.render('product', { title: 'Fiche produit', name: req.query.name, img: req.query.img, desc: req.query.desc, price: req.query.price});
 });
 
 
 /* GET panier page. */
 router.get('/panier', function(req, res, next) {
+// je récupére les valeurs envoyées et je les ajoute à mon tableu représentant le panier
+dataSelectedProducts.push({name: req.query.nameFromFront, img: req.query.imgFromFront, price: req.query.priceFromFront, quantity: 1});
   res.render('panier', { title: 'Mon panier', dataSelectedProducts});
 });
+
+/* GET delete-product page. */
+router.get('/delete-product', function(req, res, next) {
+  console.log(req.query)  //on récupére la position i de l'élément supprimé
+
+  //suppression avec la méthode splice, elle recoit normalement 3argu. mais on peut lui indiquer que 2 pour une suppression. argu1 = position, argu2 = de combien elle se décale, argu3=ce par quoi on veut le remplacer.
+
+  dataSelectedProducts.splice(req.query.positionFromFront,1);
+  res.render('panier', { title: 'Mon panier', dataSelectedProducts: dataSelectedProducts});
+});
+
 
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
