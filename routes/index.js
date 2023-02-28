@@ -1,50 +1,17 @@
 var express = require('express');
 var router = express.Router();
-// CONNEXION AVEC LA BASE DE DONNEES
-var mongoose = require('mongoose');
-// Nous commençons par définir certaines options de connexion dans un objet nommé “options” :
-// connectTimeoutMS : permet de définir la durée de la tentative de connexion à la base de données. Au bout de 5000ms, si la connexion n’est pas effective, la tentative de connexion s’arrêtera.
-// useNewUrlParser & useUnifiedTopology : Ces paramètres sont recommandés par mongoose pour utiliser des fonctionnalités non dépréciées de mongoose
-var options = {
-  connectTimeoutMS: 5000,
-  useNewUrlParser: true,
-  useUnifiedTopology : true
- }
 
-//  La méthode mongoose.connect() va recevoir plusieurs arguments :
-// En premier, l’uri de connexion à notre base de données
-// En second, les options définies précédemment sous forme d’objet
-// En troisième, une fonction de callback qui sera appelée à la fin de la tentative de connexion. La paramètre “err” contient les erreurs éventuelles remontées lors de la tentative de connexion. Si “err” est null, il n’y a alors pas d’erreur, la connexion s’est bien déroulée.
-mongoose.connect('mongodb+srv://AnaP974:adminadmin@cluster0.qao2gyv.mongodb.net/lovelypets?retryWrites=true&w=majority',
-options,        
-function(err) {
- console.log(err);
-}
-);
+var ProductModel = require('../models/product')
 
-//  Pour pouvoir manipuler et exploiter les collections de votre base de données, il faudra, pour chaque collection créer un schéma et un modèle associé à chaque collection
-var productSchema = mongoose.Schema({
-mea: Boolean,
-name: String,
-img: String,
-desc: String,
-price: Number,
-stock: Number
-});
+// var userSchema = mongoose.Schema({
+// pseudo: String,
+// email: String,
+// password: String,
+// });
 
-var ProductModel = mongoose.model('products', productSchema);
+// var UserModel = mongoose.model('users', userSchema);
 
-var userSchema = mongoose.Schema({
-pseudo: String,
-email: String,
-password: String,
-});
 
-var UserModel = mongoose.model('users', userSchema);
-
-// puis on export le model
-module.exports = ProductModel;
-module.exports = UserModel;
 
 
 
@@ -79,10 +46,6 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Home Page' });
 });
 
-router.get('/admin', function (req, res, next) {
-  
-  res.render('admin', { title: 'Page Administrateur' });
-});
 
 /* GET shop page. */
 router.get('/shop', async function (req, res, next) {
@@ -139,7 +102,7 @@ router.get('/panier', function (req, res, next) {
   res.render('panier', { title: 'Mon panier', dataSelectedProducts: req.session.dataSelectedProducts });
 });
 
-/* GET delete-product page. */
+/* GET delete-product du PANIER page. */
 router.get('/delete-product', function (req, res, next) {
   console.log(req.query)  //on récupére la position i de l'élément supprimé
 
@@ -148,6 +111,7 @@ router.get('/delete-product', function (req, res, next) {
   req.session.dataSelectedProducts.splice(req.query.positionFromFront, 1);
   res.render('panier', { title: 'Mon panier', dataSelectedProducts: req.session.dataSelectedProducts });
 });
+
 
 /* MODIFIER LA QUANTITE */
 router.post('/update-product', function (req, res, next) {
@@ -212,8 +176,71 @@ router.post("/inscription", function (req, res) {
   res.render("connected", { title: 'Votre profile', nom: req.body.nom, prenom: req.body.prenom });
 });
 
+// ----------------------------------------------
+// ------------ ROUTES PAGE ADMIN ---------------
+// ----------------------------------------------
 
 
+router.get('/admin', async function (req, res, next) {
+  var products = await ProductModel.find();
+  res.render('admin', { title: 'Page Administrateur', products });
+});
+
+router.get('/addProduct', function (req, res, next) {
+  res.render('addProduct', { title: 'Ajouter un produit', product: false});
+});
+
+router.get('/updateProduct', async function (req, res, next) {
+ var article = await ProductModel.findById(req.query.id);
+  res.render('updateProduct', { title: 'Modifier un produit', product: false, article});
+});
+
+router.post('/updateProduct', async function (req, res, next) {
+    console.log("le query : ", req.body)
+    await ProductModel.updateOne(
+      { _id: req.body.id},
+      { mea: req.body.mea,
+      name: req.body.name,
+      img: req.body.image,
+      desc: req.body.desc,
+      price: req.body.price,
+      stock: req.body.stock }
+    );
+
+    var article = await ProductModel.findById(req.body.id);
+    console.log("l'article", article)
+
+  res.render('updateProduct', { title: 'Modification effectuée', product: true, article});
+});
+
+
+router.post('/addProduct', async function (req, res, next) {
+  var newProduct = new ProductModel ({
+    mea: req.body.mea,
+    name: req.body.name,
+    img: req.body.image,
+    desc: req.body.desc,
+    price: req.body.price,
+    stock: req.body.stock
+  });
+  
+    var productNew = await newProduct.save();
+  
+  res.render('addProduct', { title: 'Ajouter un produit', product: true, productNew, message: "ajouté à la liste de produit" });
+});
+
+/* GET deleteProduct du ADMIN page. */
+router.get('/deleteProduct', async function (req, res, next) {
+  console.log(req.query)  //on récupére la position i de l'élément supprimé
+
+  await ProductModel.deleteOne(
+    {_id: req.query.id},
+  ); 
+
+  var products = await ProductModel.find();
+
+  res.render('admin', { title: 'Page Administrateur', products });
+});
 
 
 
