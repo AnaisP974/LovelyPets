@@ -20,11 +20,11 @@
           <form action="/createUser" method="post" >
             <div class="form-group">
               <label for="pseudo">Username</label>
-              <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Enter username">
+              <input type="text" id="pseudo" name="pseudoFromFront" class="form-control" placeholder="Enter username">
             </div>
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" id="email" name="emailFromFront" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <!-- <div class="form-group">
               <label for="confirmEmail">Confirm your Email address</label>
@@ -32,7 +32,7 @@
             </div> -->
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
+              <input type="password" id="password" name="passwordFromFront" class="form-control" placeholder="Enter password">
             </div>
             <!-- <div class="form-group">
               <label for="confirmPassword">Confirm Your Password</label>
@@ -52,14 +52,14 @@
 
           <h4 class="titleForm">Sign In</h4>
 
-          <form action="/con" method="post">
+          <form action="/sign-in" method="post">
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" id="email" name="emailFromFront" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
+              <input type="password" id="password" name="passwordFromFront" class="form-control" placeholder="Enter password">
             </div>
 
             <button type="submit" class="btn btn-info mt-3 mb-5">Submit</button>

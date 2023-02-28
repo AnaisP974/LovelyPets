@@ -125,56 +125,72 @@ router.get('/contact', function (req, res, next) {
   res.render('contact', { title: 'Contact Page' });
 });
 
+
+
+//---------------------------- CONNEXION / LOGGIN --------------------------------------------------
+
 /* GET connexion page. */
 router.get('/connexion', function (req, res, next) {
   res.render('connexion', { title: 'Connexion Page' });
 });
 
-router.post('/con', function (req, res, next){
-  
-})
+
 
 router.post('/createUser', async function(req, res, next){
-  var newUser = new UserModel ({
-    pseudo: req.body.pseudo,
-    email: req.body.email,
-    password: req.body.password
-  });
-  // pour le traitement des erreurs:
-  let error;
-  try {
-    var userSaved = await newUser.save();
-  }catch (err){
-    error = err;
-    console.log("création du user à la base de données échoué : ", err);
-  }
-  //renvoie d'un message d'erreur
-  assert.equal(error.errors['pseudo'].message,
-  'Path `pseudo` is required.');
+  // rechercher dans la base de données un compte contenant l'email saisie depuis le front
+  var searchUser = await UserModel.findOne({
+    email: req.body.emailFormFront
+  })
+
+  // Si l'on ne trouve rien.. 
+  if(!searchUser){
+    // créer un nouvel utilisateur
+    var newUser = new UserModel ({
+        pseudo: req.body.pseudoFromFront,
+        email: req.body.emailFromFront,
+        password: req.body.passwordFromFront
+      });
+    // enregistrer ce nv utilisateur dans la base de données
+    var userSave = await newUser.save();
+    // et crée une session user:
+    req.session.user = {
+      name: userSave.username,
+      id: userSave._id,
+    }
+    console.log(req.session.user)
   
-  assert.equal(error.errors['email'].message,
-  'Path `email` is required.');
+    res.redirect('/users')
+  } else {
+    res.redirect('/')
+  }
 
-  assert.equal(error.errors['password'].message,
-  'Path `password` is required.');
-
-
-  var user = await UserModel.findOne( { email: req.body.email } );
-
-
-    
-  res.render('profile', { title: 'Nouveau Compte créé !!!!', user });
-
-})
-
-
-router.post("/inscription", function (req, res) {
-  console.log(req.body);
-  res.render("connected", { title: 'Votre profile', nom: req.body.nom, prenom: req.body.prenom });
 });
 
 
+router.post('/sign-in', async function (req, res, next){
+  
+  var searchUser = await UserModel.findOne({
+    email: req.body.emailFromFront,
+    password: req.body.passwordFromFront
+  })
 
+  if(searchUser!= null){
+    req.session.user = {
+      pseudo: searchUser.pseudo,
+      id: searchUser._id
+    }
+    res.redirect('/users')
+  } else {
+    res.render('connexion')
+  }
+});
+
+router.get('/logout', function(req,res,next){
+
+  req.session.user = null;
+
+  res.redirect('/')
+});
 
 
 module.exports = router;
