@@ -1,101 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    <%= title %>
-  </title>
-
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-  <!-- CSS -->
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+<%- include("header.ejs")%>
 
 
-</head>
 
+  <div class="row">
 
-<body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar bg-dark" data-bs-theme="dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">Lovely Pets</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-
-              <a class="nav-link" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/shop">Shop</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/consultPanier">Panier</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/connexion">Connexion</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-
-  <main>
-    <h1>
-      <%= title%>
-    </h1>
-
-
-<h2>Déjà client :</h2>
-
-
-<form action="/inscription" method="post">
-   <input type="text" name="nom" placeholder="Nom">
-   <input type="text" name="prenom" placeholder="Prénom">
-   <input type="submit" name="valider">
-</form>
-
-
-  </main>
-
-
-  <footer>
-
-
-    <div class="container d-flex justify-content-around">
-      <a href="/">Home</a>
-      <a href="/shop">Shop</a>
-      <a href="/panier">Panier</a>
-      <a href="/contact">Contact</a>
-      <a href="/connexion">Connexion</a>
+    <div class="col-12 text-center get_started mb-5">
+      <h2>
+        <%= title%>
+      </h2>
     </div>
-  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-    integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-    crossorigin="anonymous"></script>
+    <div class="d-flex justify-content-between">
+      <!-- SIGN UP AREA -->
+      <div class="col-12 col-sm-5 text-center">
 
-</body>
+        <div class="formArea">
+          <h4 class="titleForm">Sign Up</h4>
+
+          <form action="/createUser" method="post" >
+            <div class="form-group">
+              <label for="pseudo">Username</label>
+              <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <!-- <div class="form-group">
+              <label for="confirmEmail">Confirm your Email address</label>
+              <input type="email" id="confirmEmail" name="confirmEmail" class="form-control" aria-describedby="emailHelp" placeholder="confirm your email">
+            </div> -->
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
+            </div>
+            <!-- <div class="form-group">
+              <label for="confirmPassword">Confirm Your Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm your password">
+            </div> -->
+
+            <button type="submit" class="btn btn-info mt-3 mb-5">Submit</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- SIGN IN AREA -->
+      <div class="col-12 col-sm-5 text-center me-5">
+
+        <div class="formArea">
+
+          <h4 class="titleForm">Sign In</h4>
+
+          <form>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
+            </div>
+
+            <button type="submit" class="btn btn-info mt-3 mb-5">Submit</button>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
-</html>
+  <%- include("footer.ejs")%>
